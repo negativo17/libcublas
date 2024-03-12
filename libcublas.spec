@@ -7,15 +7,14 @@
 Name:           libcublas
 Epoch:          1
 Version:        12.3.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVIDIA CUDA Basic Linear Algebra Subroutines (cuBLAS) libraries
 License:        CUDA Toolkit
 URL:            https://developer.nvidia.com/cuda-toolkit
-ExclusiveArch:  x86_64 ppc64le aarch64
+ExclusiveArch:  x86_64 aarch64
 
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-x86_64/%{name}-linux-x86_64-%{version}-archive.tar.xz
-Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-ppc64le/%{name}-linux-ppc64le-%{version}-archive.tar.xz
-Source2:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-sbsa/%{name}-linux-sbsa-%{version}-archive.tar.xz
+Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-sbsa/%{name}-linux-sbsa-%{version}-archive.tar.xz
 Source3:        cublas.pc
 Source4:        cublasLt.pc
 
@@ -58,12 +57,8 @@ Subroutines (cuBLAS).
 %setup -q -n %{name}-linux-x86_64-%{version}-archive
 %endif
 
-%ifarch ppc64le
-%setup -q -T -b 1 -n %{name}-linux-ppc64le-%{version}-archive
-%endif
-
 %ifarch aarch64
-%setup -q -T -b 2 -n %{name}-linux-sbsa-%{version}-archive
+%setup -q -T -b 1 -n %{name}-linux-sbsa-%{version}-archive
 %endif
 
 %install
@@ -109,6 +104,9 @@ sed -i \
 %{_libdir}/libcublasLt_static.a
 
 %changelog
+* Tue Mar 12 2024 Simone Caronni <negativo17@gmail.com> - 1:12.3.4.1-2
+- Drop ppc64le.
+
 * Tue Nov 28 2023 Simone Caronni <negativo17@gmail.com> - 1:12.3.4.1-1
 - Update to 12.3.4.1.
 
