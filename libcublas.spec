@@ -7,7 +7,7 @@
 Name:           libcublas
 Epoch:          1
 Version:        12.4.2.65
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVIDIA CUDA Basic Linear Algebra Subroutines (cuBLAS) libraries
 License:        CUDA Toolkit
 URL:            https://developer.nvidia.com/cuda-toolkit
@@ -20,9 +20,6 @@ Source4:        cublasLt.pc
 
 Requires(post): ldconfig
 Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
-# Drop in 11.7:
-Provides:       cuda-cublas = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      cuda-cublas < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 The NVIDIA CUDA Basic Linear Algebra Subroutines (cuBLAS) library is a
@@ -33,9 +30,6 @@ to 17x faster performance than the latest MKL BLAS.
 Summary:        Development files for NVIDIA CUDA Basic Linear Algebra Subroutines (cuBLAS)
 Requires:       %{name}%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Conflicts:      %{name}-devel-%{major_package_version} < %{?epoch:%{epoch}:}%{version}
-# Drop in 11.7:
-Provides:       cuda-cublas-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      cuda-cublas-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description devel
 This package provides development files for the NVIDIA CUDA Basic Linear
@@ -44,9 +38,6 @@ Algebra Subroutines (cuBLAS) libraries.
 %package static
 Summary:        Static libraries for NVIDIA CUDA Basic Linear Algebra Subroutines (cuBLAS)
 Requires:       %{name}-devel%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Drop in 11.7:
-Provides:       cuda-cublas-static = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      cuda-cublas-static < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description static
 This package contains static libraries for the NVIDIA CUDA Basic Linear Algebra
@@ -86,7 +77,9 @@ sed -i \
 %{_libdir}/libnvblas.so.*
 
 %files devel
+%ifarch x86_64
 %doc src
+%endif
 %{_includedir}/nvblas.h
 %{_includedir}/cublasLt.h
 %{_includedir}/cublas_v2.h
@@ -104,6 +97,9 @@ sed -i \
 %{_libdir}/libcublasLt_static.a
 
 %changelog
+* Mon Mar 18 2024 Simone Caronni <negativo17@gmail.com> - 1:12.4.2.65-2
+- SPEC file cleanup.
+
 * Tue Mar 12 2024 Simone Caronni <negativo17@gmail.com> - 1:12.4.2.65-1
 - Update to 12.4.2.65.
 
