@@ -6,7 +6,7 @@
 
 Name:           libcublas
 Epoch:          1
-Version:        12.6.4.1
+Version:        12.8.3.14
 Release:        1%{?dist}
 Summary:        NVIDIA CUDA Basic Linear Algebra Subroutines (cuBLAS) libraries
 License:        CUDA Toolkit
@@ -97,6 +97,9 @@ sed -i \
 %{_libdir}/libcublasLt_static.a
 
 %changelog
+* Fri Feb 07 2025 Simone Caronni <negativo17@gmail.com> - 1:12.8.3.14-1
+- Update to 12.8.3.14.
+
 * Fri Dec 13 2024 Simone Caronni <negativo17@gmail.com> - 1:12.6.4.1-1
 - Update to 12.6.4.1.
 
